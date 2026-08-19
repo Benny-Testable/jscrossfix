@@ -26,6 +26,11 @@ describe('JsonStore', () => {
     assert.deepEqual(store.load('plots'), { count: 2, names: ['a', 'b'] });
   });
 
+  it('returns the fallback for a missing collection', () => {
+    assert.deepEqual(store.load('missing', []), []);
+    assert.throws(() => store.load('missing'), /ENOENT/);
+  });
+
   it('lists saved collections', () => {
     assert.deepEqual(store.list(), []);
     store.save('members', []);

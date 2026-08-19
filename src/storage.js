@@ -24,8 +24,16 @@ class JsonStore {
     return target;
   }
 
-  load(name) {
-    const raw = fs.readFileSync(this.fileFor(name), 'utf8');
+  load(name, fallback) {
+    let raw;
+    try {
+      raw = fs.readFileSync(this.fileFor(name), 'utf8');
+    } catch (error) {
+      if (error.code === 'ENOENT' && fallback !== undefined) {
+        return fallback;
+      }
+      throw error;
+    }
     try {
       return JSON.parse(raw);
     } catch (error) {
