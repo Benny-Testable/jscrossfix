@@ -16,6 +16,11 @@ describe('csv import', () => {
     assert.equal(rows[1].email, 'ben@example.com');
   });
 
+  it('ignores blank lines and a trailing newline', () => {
+    const rows = parseCsv('name,email\r\nAna Silva,ana@example.com\r\n\r\nBen Okafor,ben@example.com\r\n');
+    assert.equal(rows.length, 2);
+  });
+
   it('rejects ragged lines', () => {
     assert.throws(() => parseCsv('a,b\n1'), /line 2/);
   });

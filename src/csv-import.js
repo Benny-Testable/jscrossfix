@@ -37,6 +37,9 @@ function parseCsv(text) {
   const header = parseLine(lines[0]).map((name) => name.toLowerCase());
   const rows = [];
   for (let n = 1; n < lines.length; n += 1) {
+    if (lines[n].trim() === '') {
+      continue;
+    }
     const cells = parseLine(lines[n]);
     if (cells.length !== header.length) {
       throw new ValidationError('csv', `line ${n + 1} has ${cells.length} cells, expected ${header.length}`);
