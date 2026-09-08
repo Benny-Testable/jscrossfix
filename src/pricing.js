@@ -32,7 +32,7 @@ function quoteSeasonFee(member, plotArea, options) {
 
   if (member.birthYear !== undefined) {
     const age = ageOf(member.birthYear, opts.now);
-    if (age > 65 && discount < TIER_DISCOUNT.senior) {
+    if (age >= 65 && discount < TIER_DISCOUNT.senior) {
       discount = TIER_DISCOUNT.senior;
     } else if (age < 18) {
       discount = Math.max(discount, 0.5);

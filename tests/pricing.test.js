@@ -31,6 +31,13 @@ describe('pricing', () => {
     assert.equal(fee, 52);
   });
 
+  it('treats a member who turns 65 this year as a senior', () => {
+    const turning65 = pricing.quoteSeasonFee({ tier: 'standard', birthYear: 1961 }, 12, { now: NOW });
+    const almost = pricing.quoteSeasonFee({ tier: 'standard', birthYear: 1962 }, 12, { now: NOW });
+    assert.equal(turning65, 52);
+    assert.equal(almost, 65);
+  });
+
   it('adds extras and honours the cap', () => {
     assert.equal(pricing.quoteSeasonFee({ tier: 'standard' }, 12, { water: true, earlyBird: true }), 73.75);
     assert.equal(pricing.quoteSeasonFee({ tier: 'standard' }, 12, { plotCount: 3, earlyBird: true }), 83.7);
