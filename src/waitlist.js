@@ -29,7 +29,7 @@ class Waitlist {
     if (index === -1) {
       throw new NotFoundError('waitlist entry', memberId);
     }
-    return index;
+    return index + 1;
   }
 
   leave(memberId) {

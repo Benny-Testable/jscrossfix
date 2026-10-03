@@ -24,6 +24,15 @@ describe('Waitlist', () => {
     assert.equal(list.size(), 3);
   });
 
+  it('reports one based queue positions', () => {
+    const { a, b } = setup();
+    const list = new Waitlist();
+    list.join(a);
+    list.join(b);
+    assert.equal(list.position('m2'), 1);
+    assert.equal(list.position('m1'), 2);
+  });
+
   it('rejects duplicates and unknown members', () => {
     const { a } = setup();
     const list = new Waitlist();
