@@ -8,7 +8,7 @@ const WEEK = 7 * 24 * HOUR;
 const MAX_PER_WEEK = 3;
 
 function overlaps(a, b) {
-  return a.start <= b.end && b.start <= a.end;
+  return a.start < b.end && b.start < a.end;
 }
 
 class ReservationBook {

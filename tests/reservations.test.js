@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('node:assert/strict');
-const { HOUR, ReservationBook } = require('../src/reservations');
+const { HOUR, overlaps, ReservationBook } = require('../src/reservations');
 const { ConflictError, ValidationError } = require('../src/errors');
 
 const T0 = Date.UTC(2026, 4, 2, 8, 0, 0);
@@ -26,6 +26,15 @@ describe('ReservationBook', () => {
     book.reserve('shed', 'm1', T0, T0 + 2 * HOUR);
     assert.throws(() => book.reserve('shed', 'm2', T0 + HOUR, T0 + 3 * HOUR), ConflictError);
     assert.equal(book.reserve('tools', 'm2', T0 + HOUR, T0 + 3 * HOUR).resource, 'tools');
+  });
+
+  it('allows back to back bookings', () => {
+    const book = new ReservationBook();
+    book.reserve('shed', 'm1', T0, T0 + 2 * HOUR);
+    const next = book.reserve('shed', 'm2', T0 + 2 * HOUR, T0 + 3 * HOUR);
+    assert.equal(next.start, T0 + 2 * HOUR);
+    assert.equal(overlaps({ start: 1, end: 2 }, { start: 2, end: 3 }), false);
+    assert.equal(overlaps({ start: 1, end: 3 }, { start: 2, end: 4 }), true);
   });
 
   it('enforces the weekly limit', () => {
