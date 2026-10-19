@@ -20,6 +20,13 @@ describe('schedule', () => {
     assert.equal(schedule.addMonths(d('2026-01-10'), 2).toISOString().slice(0, 10), '2026-03-10');
   });
 
+  it('clamps month end dates instead of overflowing', () => {
+    assert.equal(schedule.addMonths(d('2026-01-31'), 1).toISOString().slice(0, 10), '2026-02-28');
+    assert.equal(schedule.addMonths(d('2024-01-31'), 1).toISOString().slice(0, 10), '2024-02-29');
+    assert.equal(schedule.addMonths(d('2026-11-30'), 3).toISOString().slice(0, 10), '2027-02-28');
+    assert.equal(schedule.renewalDate(d('2026-08-31'), 1).toISOString().slice(0, 10), '2026-09-30');
+  });
+
   it('builds a watering rota that wraps around the members', () => {
     const rota = schedule.wateringRota(['m1', 'm2', 'm3'], d('2026-05-04'), 3);
     assert.equal(rota.length, 3);
