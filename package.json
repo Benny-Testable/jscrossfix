@@ -10,9 +10,12 @@
   },
   "scripts": {
     "test": "mocha",
-    "coverage": "nyc mocha"
+    "coverage": "nyc mocha",
+    "lint": "eslint .",
+    "start": "node src/cli.js"
   },
   "devDependencies": {
+    "eslint": "^9.39.5",
     "mocha": "^10.8.2",
     "nyc": "^17.1.0"
   },
