@@ -24,6 +24,12 @@ describe('validators', () => {
     it('rejects short numbers', () => {
       assert.equal(isValidPhone('12345'), false);
     });
+
+    it('requires digits and not only punctuation', () => {
+      assert.equal(isValidPhone('-------'), false);
+      assert.equal(isValidPhone('(+) - (+) -'), false);
+      assert.equal(isValidPhone('555-0100'), true);
+    });
   });
 
   describe('requireString', () => {

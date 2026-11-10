@@ -11,7 +11,10 @@ function isValidEmail(value) {
 }
 
 function isValidPhone(value) {
-  return typeof value === 'string' && PHONE_RE.test(value.trim());
+  if (typeof value !== 'string' || !PHONE_RE.test(value.trim())) {
+    return false;
+  }
+  return value.replace(/\D/g, '').length >= 7;
 }
 
 function requireString(field, value, limits) {
