@@ -64,3 +64,11 @@ describe('ids', () => {
     assert.notEqual(newId('plot'), id);
   });
 });
+
+describe('ids format', () => {
+  it('uses twelve hex characters after the prefix', () => {
+    assert.match(newId('x'), /^x_[0-9a-f]{12}$/);
+    assert.equal(hasPrefix('x_abc', 'x'), false);
+    assert.equal(hasPrefix(42, 'x'), false);
+  });
+});

@@ -1,0 +1,10 @@
+{
+  "testRunner": "mocha",
+  "mochaOptions": { "spec": ["tests/**/*.test.js"] },
+  "coverageAnalysis": "perTest",
+  "mutate": ["src/**/*.js", "!src/index.js", "!src/cli.js"],
+  "reporters": ["clear-text", "json"],
+  "jsonReporter": { "fileName": "reports/mutation/mutation.json" },
+  "tempDirName": ".stryker-tmp",
+  "timeoutMS": 10000
+}
