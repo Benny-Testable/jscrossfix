@@ -82,6 +82,23 @@ class ToolInventory {
     return late.sort((a, b) => b.days - a.days);
   }
 
+  overdueFor(memberId, now) {
+    const late = [];
+    for (const loan of this.loans) {
+      if (!loan.returnedAt && loan.due < now && loan.memberId === memberId) {
+        const days = Math.ceil((now - loan.due) / DAY);
+        let severity = 'notice';
+        if (days > 14) {
+          severity = 'suspend';
+        } else if (days > 7) {
+          severity = 'warning';
+        }
+        late.push({ toolId: loan.toolId, memberId: loan.memberId, days, severity });
+      }
+    }
+    return late.sort((a, b) => b.days - a.days);
+  }
+
   countByKind() {
     const counts = {};
     for (const tool of this.tools.values()) {

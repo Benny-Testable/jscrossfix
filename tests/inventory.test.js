@@ -70,6 +70,17 @@ describe('ToolInventory', () => {
     assert.equal(inv.overdue(NOW + 11 * DAY)[0].severity, 'warning');
   });
 
+  it('lists overdue loans for one member', () => {
+    const inv = stocked();
+    inv.checkout('t1', 'm1', NOW);
+    inv.checkout('t2', 'm2', NOW);
+    const late = inv.overdueFor('m1', NOW + 13 * DAY);
+    assert.equal(late.length, 1);
+    assert.equal(late[0].toolId, 't1');
+    assert.equal(late[0].severity, 'warning');
+    assert.deepEqual(inv.overdueFor('m3', NOW + 13 * DAY), []);
+  });
+
   it('counts tools per kind', () => {
     assert.deepEqual(stocked().countByKind(), { shovel: 2, tiller: 1, rake: 1 });
   });
