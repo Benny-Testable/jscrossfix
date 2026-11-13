@@ -246,10 +246,10 @@
       "dir": "pydriller",
       "role": "primary",
       "block": "Code Churn",
-      "pin": "pydriller (pip)",
+      "pin": "node + git",
       "status": "active",
       "measured": false,
-      "note": "PyDriller is a Python package invoked externally via a small wrapper script -- Node-version-independent by construction."
+      "note": "Corpus harness run_pydriller.js + git-history-analyzer.js (git log numstat/metadata on JS paths). No Python file in repo for QA language profile."
     },
     {
       "tool": "Git-Spark",
