@@ -1,0 +1,20 @@
+# npm-outdated -- dependency outdatedness (npm-outdated.json).
+tool: npm-outdated
+dir: npm-outdated
+role: primary
+block: Dependency Risk (SCA)
+branch: JS_V20_VITE_NPM_MONO
+node_family: "20"
+node_version: "20.20.2"
+pin: null
+status: active
+measured: false
+entrypoint: Tool Triggering (Synthetic Data)/npm-outdated/run_npm_outdated.sh
+outputs: reports/npm-outdated.json
+expects: >-
+  npm outdated --json output; exit 1 when outdated packages exist (findings code)
+note: >-
+  npm is bundled with Node. Empty {} is valid when every package is current;
+  platform may still treat empty object as no metric payload until install tree exists.
+skip_exit_code: 3
+missing_exit_code: 4

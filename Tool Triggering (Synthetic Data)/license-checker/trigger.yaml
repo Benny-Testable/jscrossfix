@@ -1,0 +1,20 @@
+# license-checker -- SCA license inventory (licenses.json).
+tool: license-checker
+dir: license-checker
+role: primary
+block: Dependency Risk (SCA)
+branch: JS_V20_VITE_NPM_MONO
+node_family: "20"
+node_version: "20.20.2"
+pin: license-checker (global npm CLI)
+status: active
+measured: false
+entrypoint: Tool Triggering (Synthetic Data)/license-checker/run_license_checker.sh
+outputs: reports/licenses.json
+expects: >-
+  JSON map of installed dependency licenses (non-empty after npm install)
+note: >-
+  Worker writes licenses.json; empty {} usually means node_modules was not
+  materialized. Corpus runner installs dependencies when node_modules is absent.
+skip_exit_code: 3
+missing_exit_code: 4

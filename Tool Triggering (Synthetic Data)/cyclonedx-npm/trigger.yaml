@@ -1,0 +1,20 @@
+# cyclonedx-npm -- corpus wiring for JS platform SBOM (bom.json).
+tool: cyclonedx-npm
+dir: cyclonedx-npm
+role: primary
+block: Dependency Risk (SCA)
+branch: JS_V20_VITE_NPM_MONO
+node_family: "20"
+node_version: "20.20.2"
+pin: cyclonedx-npm (global npm CLI)
+status: active
+measured: false
+entrypoint: Tool Triggering (Synthetic Data)/cyclonedx-npm/run_cyclonedx_npm.sh
+outputs: reports/cyclonedx-bom.json
+expects: >-
+  CycloneDX JSON SBOM from package.json plus a committed package-lock.json
+note: >-
+  Platform worker skips with file_missing_or_empty when no lockfile. This branch
+  ships package-lock.json so cyclonedx-npm and npm-audit can run on Testable.
+skip_exit_code: 3
+missing_exit_code: 4

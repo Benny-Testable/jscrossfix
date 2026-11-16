@@ -17,8 +17,8 @@
   "branchFunctional": true,
   "toolRosterVersion": "js-roster-v2-2026-09-17",
   "uniqueMetrics": 103,
-  "toolsWired": 24,
-  "toolsActive": 16,
+  "toolsWired": 27,
+  "toolsActive": 19,
   "toolsDark": 8,
   "toolsActiveDetail": [
     {
@@ -129,7 +129,7 @@
       "pin": null,
       "status": "active",
       "measured": false,
-      "note": "npm's own bundled audit/ls -- ships with npm itself on every Node family this corpus supports."
+      "note": "npm's own bundled audit/ls -- ships with npm itself on every Node family this corpus supports. Requires committed package-lock.json (added on JS_V20_VITE_NPM_MONO-FIXED)."
     },
     {
       "tool": "npm ls",
@@ -140,6 +140,36 @@
       "status": "active",
       "measured": false,
       "note": "npm's own bundled `npm ls` -- ships with npm itself on every Node family this corpus supports (npm 10.8.2 on this branch)."
+    },
+    {
+      "tool": "npm-outdated",
+      "dir": "npm-outdated",
+      "role": "primary",
+      "block": "Dependency Risk (SCA)",
+      "pin": null,
+      "status": "active",
+      "measured": false,
+      "note": "npm outdated --json --all; exit 1 means outdated packages were found (accepted as findings on this corpus)."
+    },
+    {
+      "tool": "license-checker",
+      "dir": "license-checker",
+      "role": "primary",
+      "block": "Dependency Risk (SCA)",
+      "pin": "license-checker (global npm CLI)",
+      "status": "active",
+      "measured": false,
+      "note": "Writes licenses.json from installed node_modules; package-lock.json is committed so CI and Testable can install before scan."
+    },
+    {
+      "tool": "cyclonedx-npm",
+      "dir": "cyclonedx-npm",
+      "role": "primary",
+      "block": "Dependency Risk (SCA)",
+      "pin": "cyclonedx-npm (global npm CLI)",
+      "status": "active",
+      "measured": false,
+      "note": "CycloneDX SBOM; requires package-lock.json on branch (same lockfile gate as npm-audit on the platform worker)."
     },
     {
       "tool": "Trivy",
