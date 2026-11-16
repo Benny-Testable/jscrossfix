@@ -45,7 +45,7 @@ const WIRING = [
   { dir: "eslint-scope", label: "ESLint (eslint-scope)", role: "primary", entrypoint: "Tool Triggering (Synthetic Data)/eslint-scope/run_eslint_scope.sh" },
   { dir: "codeql", label: "CodeQL", role: "alternative", entrypoint: "Tool Triggering (Synthetic Data)/codeql/run_codeql.sh" },
   { dir: "knip", label: "knip", role: "alternative", entrypoint: "Tool Triggering (Synthetic Data)/knip/run_knip.sh" },
-  { dir: "pydriller", label: "PyDriller", role: "primary", entrypoint: "Tool Triggering (Synthetic Data)/pydriller/run_pydriller.py" },
+  { dir: "pydriller", label: "PyDriller", role: "primary", entrypoint: "Tool Triggering (Synthetic Data)/pydriller/run_pydriller.js" },
   { dir: "git-spark", label: "Git-Spark", role: "alternative", entrypoint: "Tool Triggering (Synthetic Data)/git-spark/run_git_spark.sh" }
 ];
 

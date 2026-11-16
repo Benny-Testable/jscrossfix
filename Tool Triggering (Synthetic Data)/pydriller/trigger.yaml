@@ -6,14 +6,16 @@ block: Code Churn
 branch: JS_V20_VITE_NPM_MONO
 node_family: "20"
 node_version: "20.20.2"
-pin: pydriller (pip, latest)
+pin: node + git (numstat)
 status: active
 measured: false
-entrypoint: Tool Triggering (Synthetic Data)/pydriller/run_pydriller.py
+entrypoint: Tool Triggering (Synthetic Data)/pydriller/run_pydriller.js
 outputs: reports/pydriller.json
 expects: >-
-  per-file commit/churn counts from this branch's real git history. A real invocation was attempted from this session's Linux verification bridge and failed only because that bridge mounts this worktree through a `.git` file whose `gitdir:` pointer is a Windows-style absolute path it cannot resolve -- not a pydriller or corpus defect. The same command is expected to run normally on the real Windows host, the same way Claude Code's other real per-family verifications did.
+  per-file churn, commit metadata, and numstat from this branch's git history (.js/.mjs/.cjs/.jsx)
+  via git-history-analyzer.js (git log). No Python source in repo — avoids python language detection on QA.
 note: >-
-  PyDriller is a Python package invoked externally via a small wrapper script -- Node-version-independent by construction.
+  Extended analysis written to reports/git-history-analysis.json. Shallow clones analyze fetched commits only.
+  Local corpus harness only. Testable production uses catalog javascript pydriller + git-churn on the worker.
 skip_exit_code: 3          # cannot run on this Node family
 missing_exit_code: 4       # binary/toolchain absent from this host
