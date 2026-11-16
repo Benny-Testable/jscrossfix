@@ -3,7 +3,7 @@ tool: cyclonedx-npm
 dir: cyclonedx-npm
 role: primary
 block: Dependency Risk (SCA)
-branch: JS_V20_VITE_NPM_MONO
+branch: JS_V20_VITE_NPM_MONO-FIXED
 node_family: "20"
 node_version: "20.20.2"
 pin: cyclonedx-npm (global npm CLI)

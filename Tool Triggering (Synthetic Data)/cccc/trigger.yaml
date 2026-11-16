@@ -3,7 +3,7 @@ tool: cccc
 dir: cccc
 role: alternative
 block: Cognitive Complexity
-branch: JS_V20_VITE_NPM_MONO
+branch: JS_V20_VITE_NPM_MONO-FIXED
 node_family: "20"
 node_version: "20.20.2"
 pin: cccc@3.2.0 (distro package)

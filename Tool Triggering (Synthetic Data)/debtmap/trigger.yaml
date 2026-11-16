@@ -3,7 +3,7 @@ tool: debtmap
 dir: debtmap
 role: alternative
 block: Cyclomatic Complexity
-branch: JS_V20_VITE_NPM_MONO
+branch: JS_V20_VITE_NPM_MONO-FIXED
 node_family: "20"
 node_version: "20.20.2"
 pin: debtmap@0.24.1 (cargo)

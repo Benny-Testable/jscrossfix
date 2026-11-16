@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 /**
- * Tool integration entry point for branch JS_V20_VITE_NPM_MONO (Node 20).
+ * Tool integration entry point for branch JS_V20_VITE_NPM_MONO-FIXED (Node 20).
  *
  *   node "Tool Triggering (Synthetic Data)/tool_integration.js"            banner
  *   node "Tool Triggering (Synthetic Data)/tool_integration.js" --verify   check every tool is wired

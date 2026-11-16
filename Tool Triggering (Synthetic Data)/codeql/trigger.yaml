@@ -3,7 +3,7 @@ tool: CodeQL
 dir: codeql
 role: alternative
 block: All Definition Coverage
-branch: JS_V20_VITE_NPM_MONO
+branch: JS_V20_VITE_NPM_MONO-FIXED
 node_family: "20"
 node_version: "20.20.2"
 pin: codeql-cli@2.27.1 (GitHub release)
