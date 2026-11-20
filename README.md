@@ -56,3 +56,4 @@ All credentials, e-mail addresses and phone numbers in `src/config.js` and
 
 MIT, see `LICENSE`.
 <!-- dummy PR 2026-11-19 06:54:05 -->
+<!-- dummy PR 2026-11-20 07:24:13 -->
