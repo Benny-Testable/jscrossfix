@@ -164,3 +164,39 @@ method (npm registry `engines.node` ranges, prereleases excluded).
 <!-- dummy PR 2026-11-06 12:14:33 -->
 <!-- dummy PR 2026-11-12 06:42:31 -->
 <!-- dummy PR 2026-11-17 09:11:15 -->
+
+
+## Metric test data map
+
+This branch carries planted test data so each Testable whitebox metric has something to measure. The table says which files feed which metric. This branch has not been run on the platform yet; the same data in the TypeScript branch produced the values noted in its README.
+
+| Data | Files | Metrics it feeds |
+|---|---|---|
+| IaC with deliberate mistakes (open firewall, public bucket, unencrypted disk and database) | `infra/terraform/main.tf`, `infra/kubernetes/deployment.yaml`, `infra/cloudformation/stack.yaml`, `.checkov.yaml`, `.checkov/policies/*.yaml` | IaC Security: Open Network Access, Public Exposure Risk, Storage Encryption Gap, CIS Compliance Gap. IaC Security Scanning: the four detection rows |
+| High complexity function | `src/analysis/complexity-sample.js` | Cyclomatic Complexity, Cognitive Complexity |
+| Call chain of depth 5 and fan-out of 6 | `src/analysis/call-graph-sample.js` | call graph and path metrics |
+| Dead code | `src/analysis/dead-code.js` | Dead Code Detection, unused exports |
+| Lint violations | `src/analysis/lint-violations.js` | Lint / Rule Violations |
+| Insecure patterns and taint flows | `src/analysis/sast-fixture.js`, `src/analysis/taint-fixture.js` | Static Vulnerabilities (SAST) |
+| Personal data in log statements, sensitive values reaching output, SQL concatenation, TLS off, md5, shell spawn | `src/analysis/sensitive-data-fixture.js` | PII in Log Statements, SAST Data Flow Security |
+| Performance anti-patterns (nested loops, push in loops, fetch in a loop, shared state in Promise.all) | `src/analysis/perf-fixture.js` | Performance Static Analysis (5 metrics) |
+| Fake hard-coded secrets | `src/analysis/secrets-fixture.js` | Hardcoded Secret Detection and Scan |
+| Pre-commit hook configuration | `.pre-commit-config.yaml` | Pre-Commit Secret Prevention |
+| Circular requires | `src/analysis/cycle-a.js`, `src/analysis/cycle-b.js` | Circular Dependency Detection |
+| Invented student records | `src/analysis/student-pii-fixture.js`, `docs/student-records.md` | PII in Codebase Detection |
+| Old vulnerable dependency pins and one unused package (`left-pad`) | `package.json`, `package-lock.json`, `src/integrations.js` | Dependency Risk (SCA): Vulnerability and Outdated Dependency Detection, Unused Dependency Detection |
+| Dependabot, Renovate and a scheduled security workflow | `.github/dependabot.yml`, `renovate.json`, `.github/workflows/scheduled-security.yml` | Continuous Dependency Monitoring |
+| Tests that run the planted code | `tests/analysis.test.js` | Statement, Branch, Path and Data Flow coverage, Mutation Score |
+| Performance tests | `tests/perf-throughput.test.js` | Performance Test Code Coverage |
+| Git history: five edits to performance and production files with tests, and a fake secret committed then removed | git log | Code Churn rows, Code Churn in Performance-Critical Paths, Secrets in Git History |
+
+Test files sit directly in `tests/` because the `npm test` glob (`tests/**/*.test.js`) is not expanded recursively by the shell.
+
+### What no repository data can fix
+
+- Secrets in Git History and Secrets in Repo History are not scheduled on a manual run; the platform runs trufflehog weekly.
+- Privileged Access Audit and the SOC 2 settings depend on GitHub settings, not files.
+- The platform retired many metrics in qa, and some metrics are Not Applicable by design.
+- This repo has no JavaScript semgrep taint rules in the platform, so sensitive-data flows are checked mainly by the PII-logging rule and eslint-plugin-security.
+
+All secrets, names and numbers in the test data are invented.
