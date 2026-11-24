@@ -12,6 +12,7 @@ const { describeCycleA } = require('../src/analysis/cycle-a');
 const { cycleBName } = require('../src/analysis/cycle-b');
 const { databasePassword, legacyConfig } = require('../src/analysis/secrets-fixture');
 const { studentContactLine, SEED_STUDENTS } = require('../src/analysis/student-pii-fixture');
+const { validateUserRecord, validateAdminRecord } = require('../src/analysis/defect-clone-fixture');
 
 // These specs run the planted analysis fixtures with real inputs, so every tool that
 // measures execution (path, branch, condition, data-flow, mutation) has a trace to read.
@@ -206,4 +207,32 @@ describe('analysis fixtures: expedite fee', () => {
     assert.equal(expediteFee(1000, true), 20);
     assert.equal(expediteFee(1000, false), 0);
   });
+});
+
+describe('analysis fixtures: defect clone validation', () => {
+  for (const [label, fn, extra] of [
+    ['validateUserRecord', validateUserRecord, {}],
+    ['validateAdminRecord', validateAdminRecord, { role: 'admin' }],
+  ]) {
+    it(`${label} normalizes valid records and handles age boundaries`, () => {
+      assert.deepEqual(fn({ id: ' u1 ', email: 'Alice@Example.COM' }), {
+        valid: true,
+        id: 'u1',
+        email: 'alice@example.com',
+        ...extra,
+      });
+      assert.equal(fn({ id: 'u2', email: 'a@b.io', age: 0 }).valid, true);
+      assert.equal(fn({ id: 'u3', email: 'a@b.io', age: 150 }).valid, true);
+    });
+
+    it(`${label} rejects invalid inputs and out-of-range ages`, () => {
+      assert.throws(() => fn(null), TypeError);
+      assert.throws(() => fn('bad'), TypeError);
+      assert.throws(() => fn({ id: '   ', email: 'a@b.io' }), RangeError);
+      assert.throws(() => fn({ id: 'u1', email: 'invalid' }), RangeError);
+      assert.throws(() => fn({ id: 'u1', email: 'a@b.io', age: -1 }), RangeError);
+      assert.throws(() => fn({ id: 'u1', email: 'a@b.io', age: 151 }), RangeError);
+      assert.throws(() => fn({ id: 'u1', email: 'a@b.io', age: '20' }), RangeError);
+    });
+  }
 });
