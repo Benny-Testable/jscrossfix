@@ -200,3 +200,4 @@ Test files sit directly in `tests/` because the `npm test` glob (`tests/**/*.tes
 - This repo has no JavaScript semgrep taint rules in the platform, so sensitive-data flows are checked mainly by the PII-logging rule and eslint-plugin-security.
 
 All secrets, names and numbers in the test data are invented.
+<!-- dummy PR 2026-11-24 17:52:50 -->
