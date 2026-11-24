@@ -45,3 +45,9 @@ describe('performance: cube sum', () => {
     assert.equal(require('../src/analysis/perf-fixture').sumCube(20), 228000);
   });
 });
+
+describe('performance: pair count', () => {
+  it('counts pairs without building them', () => {
+    assert.equal(require('../src/analysis/perf-fixture').pairCount([1, 2, 3], [4, 5]), 6);
+  });
+});

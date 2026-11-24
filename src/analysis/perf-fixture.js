@@ -70,3 +70,8 @@ module.exports = { buildCube, pairUp, loadPrices, loadStock, collectTotals };
 module.exports.sumCube = function sumCube(size) {
   return buildCube(size).reduce((total, cell) => total + cell, 0);
 };
+
+/** how many pairs pairUp would build */
+module.exports.pairCount = function pairCount(left, right) {
+  return left.length * right.length;
+};
