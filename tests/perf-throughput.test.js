@@ -39,3 +39,9 @@ describe('performance: throughput budgets', () => {
     assert.deepEqual(result.list.sort((a, b) => a - b), [2, 4, 6]);
   });
 });
+
+describe('performance: cube sum', () => {
+  it('sums a 20 x 20 x 20 cube', () => {
+    assert.equal(require('../src/analysis/perf-fixture').sumCube(20), 228000);
+  });
+});

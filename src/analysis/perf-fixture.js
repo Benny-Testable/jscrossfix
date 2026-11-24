@@ -65,3 +65,8 @@ async function collectTotals(items) {
 }
 
 module.exports = { buildCube, pairUp, loadPrices, loadStock, collectTotals };
+
+/** sums the cells of a cube built by buildCube */
+module.exports.sumCube = function sumCube(size) {
+  return buildCube(size).reduce((total, cell) => total + cell, 0);
+};
