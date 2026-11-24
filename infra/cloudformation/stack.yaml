@@ -1,0 +1,28 @@
+# Test fixture: deliberately misconfigured CloudFormation. Not meant to be deployed.
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Fixture stack for the Testable IaC scanners
+
+Resources:
+  PublicBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: fixture-cfn-public-000000
+      AccessControl: PublicRead
+
+  OpenSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Fixture group open to the world
+      VpcId: vpc-00000000
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  PlainVolume:
+    Type: AWS::EC2::Volume
+    Properties:
+      AvailabilityZone: us-east-1a
+      Size: 20
+      Encrypted: false

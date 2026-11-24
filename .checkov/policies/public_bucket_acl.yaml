@@ -1,0 +1,13 @@
+metadata:
+  id: "CKV2_TESTABLE_PUBLIC_BUCKET_4"
+  name: "Bucket ACL must not be public"
+  category: "GENERAL_SECURITY"
+definition:
+  cond_type: attribute
+  resource_types:
+    - aws_s3_bucket_acl
+  attribute: acl
+  operator: not_within
+  value:
+    - "public-read"
+    - "public-read-write"

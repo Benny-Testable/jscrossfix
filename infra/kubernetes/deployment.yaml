@@ -1,0 +1,41 @@
+# Test fixture: a deliberately insecure workload. Not meant to be applied.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fixture-gateway
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fixture-gateway
+  template:
+    metadata:
+      labels:
+        app: fixture-gateway
+    spec:
+      hostNetwork: true
+      containers:
+        - name: gateway
+          image: nginx:latest
+          securityContext:
+            privileged: true
+            allowPrivilegeEscalation: true
+            runAsUser: 0
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fixture-gateway
+  namespace: default
+spec:
+  type: LoadBalancer
+  loadBalancerSourceRanges:
+    - 0.0.0.0/0
+  selector:
+    app: fixture-gateway
+  ports:
+    - port: 80
+      targetPort: 80

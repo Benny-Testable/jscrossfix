@@ -18,6 +18,14 @@
     "dataflow": "node scripts/dataflow-scope.js src",
     "audit": "npm audit --json"
   },
+  "dependencies": {
+    "axios": "0.21.0",
+    "left-pad": "1.3.0",
+    "lodash": "4.17.15",
+    "minimist": "1.2.5",
+    "node-fetch": "2.6.0",
+    "tar": "6.1.0"
+  },
   "devDependencies": {
     "@dodona/dolos": "^2.9.3",
     "@stryker-mutator/core": "^9.6.1",

@@ -1,0 +1,30 @@
+metadata:
+  id: "CKV2_TESTABLE_CIS_AWS_5"
+  name: "CIS AWS: S3 public access block must block all four settings"
+  category: "GENERAL_SECURITY"
+definition:
+  and:
+    - cond_type: attribute
+      resource_types:
+        - aws_s3_bucket_public_access_block
+      attribute: block_public_acls
+      operator: equals
+      value: true
+    - cond_type: attribute
+      resource_types:
+        - aws_s3_bucket_public_access_block
+      attribute: block_public_policy
+      operator: equals
+      value: true
+    - cond_type: attribute
+      resource_types:
+        - aws_s3_bucket_public_access_block
+      attribute: ignore_public_acls
+      operator: equals
+      value: true
+    - cond_type: attribute
+      resource_types:
+        - aws_s3_bucket_public_access_block
+      attribute: restrict_public_buckets
+      operator: equals
+      value: true

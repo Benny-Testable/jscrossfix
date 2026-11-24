@@ -1,0 +1,6 @@
+# Loaded by checkov when it runs in the repository root.
+# The policies in .checkov/policies carry descriptive ids ("OPEN_INGRESS", "UNENCRYPTED",
+# "PUBLIC", "CIS"); the Testable parser reads those words to place a finding in a
+# taxonomy bucket. They are YAML, not Python, so no extra language is detected.
+external-checks-dir:
+  - .checkov/policies

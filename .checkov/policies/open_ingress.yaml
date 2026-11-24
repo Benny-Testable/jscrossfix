@@ -1,0 +1,11 @@
+metadata:
+  id: "CKV2_TESTABLE_OPEN_INGRESS_1"
+  name: "Security group must not allow ingress from 0.0.0.0/0"
+  category: "NETWORKING"
+definition:
+  cond_type: attribute
+  resource_types:
+    - aws_security_group
+  attribute: ingress.*.cidr_blocks
+  operator: not_contains
+  value: "0.0.0.0/0"

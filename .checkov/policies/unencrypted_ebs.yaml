@@ -1,0 +1,11 @@
+metadata:
+  id: "CKV2_TESTABLE_UNENCRYPTED_EBS_2"
+  name: "EBS volumes must be encrypted"
+  category: "ENCRYPTION"
+definition:
+  cond_type: attribute
+  resource_types:
+    - aws_ebs_volume
+  attribute: encrypted
+  operator: equals
+  value: true
