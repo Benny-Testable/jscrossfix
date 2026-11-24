@@ -75,3 +75,12 @@ module.exports.sumCube = function sumCube(size) {
 module.exports.pairCount = function pairCount(left, right) {
   return left.length * right.length;
 };
+
+/** batches lookups into groups to cut round trips */
+module.exports.chunk = function chunk(items, size) {
+  const groups = [];
+  for (let i = 0; i < items.length; i += size) {
+    groups.push(items.slice(i, i + size));
+  }
+  return groups;
+};

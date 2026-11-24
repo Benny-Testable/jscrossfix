@@ -51,3 +51,9 @@ describe('performance: pair count', () => {
     assert.equal(require('../src/analysis/perf-fixture').pairCount([1, 2, 3], [4, 5]), 6);
   });
 });
+
+describe('performance: chunking', () => {
+  it('splits a list into groups', () => {
+    assert.deepEqual(require('../src/analysis/perf-fixture').chunk([1, 2, 3, 4, 5], 2), [[1, 2], [3, 4], [5]]);
+  });
+});
