@@ -87,3 +87,10 @@ function tierDiscount(tier) {
 }
 
 module.exports = { classifyOrder, auditTrail, isBulkTier, tierDiscount };
+
+/** surcharge per region */
+module.exports.regionSurcharge = function regionSurcharge(region) {
+  if (region === 'emea') return 0.04;
+  if (region === 'apac') return 0.06;
+  return 0;
+};

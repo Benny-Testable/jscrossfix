@@ -190,3 +190,12 @@ describe('analysis fixtures: cycle, secret and student constants', () => {
     assert.match(studentContactLine(SEED_STUDENTS[0]), /Jennifer Alvarez/);
   });
 });
+
+describe('analysis fixtures: region surcharge', () => {
+  it('returns the surcharge per region', () => {
+    const { regionSurcharge } = require('../src/analysis/complexity-sample');
+    assert.equal(regionSurcharge('emea'), 0.04);
+    assert.equal(regionSurcharge('apac'), 0.06);
+    assert.equal(regionSurcharge('us'), 0);
+  });
+});
