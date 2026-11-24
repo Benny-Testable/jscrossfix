@@ -199,3 +199,11 @@ describe('analysis fixtures: region surcharge', () => {
     assert.equal(regionSurcharge('us'), 0);
   });
 });
+
+describe('analysis fixtures: expedite fee', () => {
+  it('charges two percent only when expedited', () => {
+    const { expediteFee } = require('../src/analysis/complexity-sample');
+    assert.equal(expediteFee(1000, true), 20);
+    assert.equal(expediteFee(1000, false), 0);
+  });
+});

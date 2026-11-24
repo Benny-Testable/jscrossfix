@@ -94,3 +94,8 @@ module.exports.regionSurcharge = function regionSurcharge(region) {
   if (region === 'apac') return 0.06;
   return 0;
 };
+
+/** fee for an expedited order */
+module.exports.expediteFee = function expediteFee(value, expedited) {
+  return expedited ? Math.round(value * 0.02 * 100) / 100 : 0;
+};
