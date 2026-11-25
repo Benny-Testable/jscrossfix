@@ -201,3 +201,4 @@ Test files sit directly in `tests/` because the `npm test` glob (`tests/**/*.tes
 
 All secrets, names and numbers in the test data are invented.
 <!-- dummy PR 2026-11-24 17:52:50 -->
+<!-- dummy PR 2026-11-25 10:28:46 -->
