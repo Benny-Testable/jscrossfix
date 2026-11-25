@@ -98,7 +98,7 @@ resource "aws_db_instance" "plain_db" {
   allocated_storage   = 20
   username            = "fixture"
   password            = var.db_password
-  storage_encrypted   = false
+  storage_encrypted   = true
   publicly_accessible = true
   skip_final_snapshot = true
 }

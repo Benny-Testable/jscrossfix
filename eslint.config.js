@@ -5,6 +5,9 @@ const security = require('eslint-plugin-security');
 
 module.exports = [
   {
+    ignores: ['Tool Triggering (Synthetic Data)/**'],
+  },
+  {
     files: ['src/**/*.js', 'packages/**/*.js'],
     plugins: { sonarjs, security },
     languageOptions: { ecmaVersion: 2022, sourceType: 'commonjs' },

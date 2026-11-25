@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 /**
  * Extended coverage tests — imports from src/coverage-helpers.js so that
@@ -171,5 +171,53 @@ describe('http-errors-legacy coverage', () => {
 describe('dead-code orphanedHelper coverage', () => {
   it('trims and lowercases input', () => {
     assert.equal(orphanedHelper('  HeLLo  '), 'hello');
+  });
+});
+
+const { PREFIX, isProductId, toProductId } = require('../src/ids');
+const { createApp } = require('../src/index');
+const { buildCube, pairUp, sumCube, pairCount, chunk } = require('../src/analysis/perf-fixture');
+const { weakToken, validateCode, legacyBuffer } = require('../src/analysis/sast-fixture');
+const { buildFilter } = require('../src/analysis/taint-fixture');
+
+describe('ids and index coverage', () => {
+  it('validates and formats product ids', () => {
+    assert.equal(PREFIX, 'GM-');
+    assert.equal(isProductId('GM-0001'), true);
+    assert.equal(isProductId('GM-'), false);
+    assert.equal(isProductId(123), false);
+    assert.equal(toProductId(7), 'GM-0007');
+    assert.throws(() => toProductId(-1), TypeError);
+    assert.throws(() => toProductId(1.5), TypeError);
+  });
+
+  it('creates app instance', () => {
+    const app = createApp();
+    assert.equal(app.product, 'GraniteMill');
+    assert.ok(app.service);
+  });
+});
+
+describe('perf-fixture pure helpers coverage', () => {
+  it('builds and sums cubes', () => {
+    assert.deepEqual(buildCube(0), []);
+    assert.equal(buildCube(2).length, 8);
+    assert.equal(sumCube(2), 12);
+  });
+
+  it('pairs and chunks arrays', () => {
+    assert.deepEqual(pairUp([1, 2], ['a', 'b']), [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]);
+    assert.equal(pairCount([1, 2], ['a', 'b', 'c']), 6);
+    assert.deepEqual(chunk([1, 2, 3, 4, 5], 2), [[1, 2], [3, 4], [5]]);
+  });
+});
+
+describe('sast-fixture and taint-fixture pure helpers coverage', () => {
+  it('generates weakToken, validates code, builds buffer and filter', () => {
+    assert.equal(weakToken().length, 32);
+    assert.equal(validateCode('aaa'), true);
+    assert.equal(validateCode('bbb'), false);
+    assert.equal(legacyBuffer('hi').toString(), 'hi');
+    assert.equal(buildFilter({ filterPattern: '^ord' }).test('order-1'), true);
   });
 });
