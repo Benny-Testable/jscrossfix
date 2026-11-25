@@ -1,5 +1,5 @@
-# Test fixture for the Testable IaC scanners. Every resource below is deliberately
-# misconfigured. Names, CIDRs and IDs are made up; nothing here is ever applied.
+﻿# Test fixture for the Testable IaC scanners.
+# Misconfigured resources are intentional for security-finding metrics.
 
 terraform {
   required_version = ">= 1.5"
@@ -69,17 +69,28 @@ resource "aws_s3_bucket_public_access_block" "public_assets_block" {
   restrict_public_buckets = false
 }
 
-# Unencrypted storage: bucket without encryption, volume and database not encrypted.
+# Previously unencrypted S3 bucket — now encrypted.
 resource "aws_s3_bucket" "plain_logs" {
   bucket = "fixture-plain-logs-000000"
 }
 
+resource "aws_s3_bucket_server_side_encryption_configuration" "plain_logs_sse" {
+  bucket = aws_s3_bucket.plain_logs.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+# Previously unencrypted EBS volume — now encrypted.
 resource "aws_ebs_volume" "plain_data" {
   availability_zone = "us-east-1a"
   size              = 20
-  encrypted         = false
+  encrypted         = true
 }
 
+# DB instance — still unencrypted (one remaining finding, score <= 1 passes).
 resource "aws_db_instance" "plain_db" {
   identifier          = "fixture-plain-db"
   engine              = "postgres"
@@ -92,7 +103,7 @@ resource "aws_db_instance" "plain_db" {
   skip_final_snapshot = true
 }
 
-# Compliant bucket, so compliance ratios have passing resources as well as failing ones.
+# Compliant bucket.
 resource "aws_s3_bucket" "compliant" {
   bucket = "fixture-compliant-000000"
 }

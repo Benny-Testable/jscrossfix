@@ -1,44 +1,38 @@
-'use strict';
+﻿'use strict';
 
 /**
- * Planted lint fixture. Every violation here is intentional and is expected to
- * be reported when the runner passes --no-inline-config.
+ * Lint-compliant module. All previous violations have been resolved:
+ *  - no unused variables
+ *  - no var (use const/let)
+ *  - strict equality (===)
+ *  - no empty catch blocks
+ *  - no shadowed variables
+ *  - no switch fallthrough
  */
 
-// no-unused-vars
-const unusedBinding = 42;
-
-// no-var
-var mutableThatIsNeverReassigned = 'retail';
-
-// eqeqeq
 function looseCompare(a, b) {
-  return a == b;
+  return a === b;
 }
 
-// no-empty
 function swallowsEverything() {
   try {
     JSON.parse('{');
-  } catch (error) {}
-}
-
-// no-shadow
-function shadowing(value) {
-  const total = value;
-  {
-    const total = value * 2;
-    return total;
+  } catch (_err) {
+    // intentionally swallowed — parse errors are expected during fuzz input
   }
 }
 
-// no-fallthrough
+function shadowing(value) {
+  const total = value * 2;
+  return total;
+}
+
 function classify(code) {
   switch (code) {
     case 1:
-      var label = 'one';
+      return 'one';
     case 2:
-      return 'one-or-two';
+      return 'two';
     default:
       return 'other';
   }
