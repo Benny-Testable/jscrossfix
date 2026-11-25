@@ -188,7 +188,7 @@ describe('analysis fixtures: cycle, secret and student constants', () => {
 
   it('formats a student contact line', () => {
     assert.equal(SEED_STUDENTS.length, 5);
-    assert.match(studentContactLine(SEED_STUDENTS[0]), /Jennifer Alvarez/);
+    assert.match(studentContactLine(SEED_STUDENTS[0]), /Record-001/);
   });
 });
 

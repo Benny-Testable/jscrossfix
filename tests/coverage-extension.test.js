@@ -133,3 +133,43 @@ describe('computeDiscount def-use coverage', () => {
     assert.equal(computeDiscount({ premium: false, loyaltyYears: 6, referral: false }), 0.05);
   });
 });
+
+const { tallyHours } = require('../src/dataflow');
+const { LegacyHttpError, legacyNotFound, legacyBadRequest, legacyForbidden } = require('../src/http-errors-legacy');
+const { orphanedHelper } = require('../src/analysis/dead-code');
+
+describe('dataflow tallyHours coverage', () => {
+  it('handles empty records', () => {
+    assert.deepEqual(tallyHours([]), { total: 0, bands: { low: 0, mid: 0, high: 0, invalid: 0 } });
+  });
+  it('categorizes low, mid, high, capped, and invalid records', () => {
+    const res = tallyHours([
+      { hours: -1 },
+      { hours: 'bad' },
+      null,
+      { hours: 2 },
+      { hours: 5 },
+      { hours: 10 },
+      { hours: 12 },
+    ], 8);
+    assert.deepEqual(res, { total: 23, bands: { low: 2, mid: 1, high: 2, invalid: 2 } });
+  });
+});
+
+describe('http-errors-legacy coverage', () => {
+  it('creates legacy error instances with default and custom messages', () => {
+    assert.equal(new LegacyHttpError(418, 'teapot').status, 418);
+    assert.equal(legacyNotFound().status, 404);
+    assert.equal(legacyNotFound('missing').message, 'missing');
+    assert.equal(legacyBadRequest().status, 400);
+    assert.equal(legacyBadRequest('invalid').message, 'invalid');
+    assert.equal(legacyForbidden().status, 403);
+    assert.equal(legacyForbidden('denied').message, 'denied');
+  });
+});
+
+describe('dead-code orphanedHelper coverage', () => {
+  it('trims and lowercases input', () => {
+    assert.equal(orphanedHelper('  HeLLo  '), 'hello');
+  });
+});

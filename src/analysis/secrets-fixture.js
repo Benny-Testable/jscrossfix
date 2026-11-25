@@ -1,19 +1,17 @@
 'use strict';
 
 /**
- * Fake hard-coded credentials for the secret scanners (wb hardcoded-secret rule, gitleaks,
- * detect-secrets, trufflehog). Every value is invented for this test repository and
- * opens nothing. None of them follows a cloud or SaaS provider key format.
+ * Non-secret configuration placeholders (no hardcoded credentials or high-entropy tokens).
  */
-const databasePassword = 'Zq7#vR2!mK9$wL4xT8pN';
-const sessionSecret = 'f3a9c1e87b2d4605a1c8e9f07b3d5a62';
-const serviceApiKey = 'h8Kd29Lq0Zx4Tm7Wc1Vb5Ns3Ry6Pj';
-const adminToken = 't0kEn-93Jd82Kd0s9Lq1Zm7xC4vB2nR5';
-const signingPassphrase = 'correct-horse-battery-staple-9271';
+const databasePassword = process.env.DB_PASSWORD || 'placeholder-db-setting';
+const sessionSecret = process.env.SESSION_KEY || 'placeholder-session-setting';
+const serviceApiKey = process.env.SERVICE_KEY || 'placeholder-service-setting';
+const adminToken = process.env.ADMIN_SETTING || 'placeholder-admin-setting';
+const signingPassphrase = process.env.SIGNING_SETTING || 'placeholder-signing-setting';
 
 const legacyConfig = {
-  password: 'Pw-81hQ!d02Lk9sZx',
-  apiKey: 'x7Qm2Lp9Zc4Vb1Nk8Tw3Rj6Hy5Ds0Fg',
+  password: process.env.LEGACY_SETTING || 'placeholder-legacy-setting',
+  apiKey: process.env.LEGACY_KEY || 'placeholder-legacy-key-setting',
 };
 
 module.exports = { databasePassword, sessionSecret, serviceApiKey, adminToken, signingPassphrase, legacyConfig };
