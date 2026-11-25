@@ -15,15 +15,15 @@ function classifyRetailGold(units, value, expedited, region) {
   return 'retail-gold-minimal';
 }
 
-function classifyRetailSilver(units, region) {
-  if (units > 100) return 'retail-silver-bulk';
+function classifyRetailSilver(units, value, region) {
+  if (units > 100) return value > 5000 ? 'retail-silver-bulk' : 'retail-silver-mid';
   if (units > 10) return region === 'apac' ? 'retail-silver-apac' : 'retail-silver';
   return 'retail-silver-minimal';
 }
 
 function classifyRetail(tier, units, value, expedited, region) {
   if (tier === 'gold') return classifyRetailGold(units, value, expedited, region);
-  if (tier === 'silver') return classifyRetailSilver(units, region);
+  if (tier === 'silver') return classifyRetailSilver(units, value, region);
   return units > 50 ? 'retail-standard-bulk' : 'retail-standard';
 }
 

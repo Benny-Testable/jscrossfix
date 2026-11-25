@@ -11,7 +11,7 @@
  */
 
 function looseCompare(a, b) {
-  return a === b;
+  return String(a) === String(b);
 }
 
 function swallowsEverything() {
@@ -30,9 +30,8 @@ function shadowing(value) {
 function classify(code) {
   switch (code) {
     case 1:
-      return 'one';
     case 2:
-      return 'two';
+      return 'one-or-two';
     default:
       return 'other';
   }
